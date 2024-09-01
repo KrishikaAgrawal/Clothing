@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clothing Store</title>
+    <script src="script.js" defer></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+      <h1 class="text-3xl font-bold text-center mb-6">Find Your Fashion</h1>
+
+      <!-- Search Bar -->
+      <div class="relative max-w-lg mx-auto">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for clothing..."
+          class="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Display all items initially -->
+      <div
+        id="item-list"
+        class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10"
+      >
+        <!-- Clothing items will be dynamically added here -->
+      </div>
+    </div>
+  </body>
+</html>
