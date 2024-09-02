@@ -32,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
+  // Initialize Fuse.js with the clothingItems array
+  const fuse = new Fuse(clothingItems, {
+    keys: ["name"],
+    threshold: 0.4, // Adjust the threshold to control the fuzziness
+  });
+
   // Function to display items
   function displayItems(items) {
     itemList.innerHTML = ""; // Clear previous items
@@ -39,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const itemElement = document.createElement("div");
       itemElement.classList.add("p-4", "bg-white", "rounded-lg", "shadow-md");
       itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="w-full h-72 object-cover rounded-t-lg">
-                <h2 class="text-xl font-bold mt-4">${item.name}</h2>
-            `;
+        <img src="${item.image}" alt="${item.name}" class="w-full h-72 object-cover rounded-t-lg">
+        <h2 class="text-xl font-bold mt-4">${item.name}</h2>
+      `;
       itemList.appendChild(itemElement);
     });
   }
@@ -51,10 +57,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Filter and display items based on search input
   searchInput.addEventListener("input", function () {
-    const query = searchInput.value.toLowerCase();
-    const filteredItems = clothingItems.filter((item) =>
-      item.name.toLowerCase().includes(query)
-    );
+    const query = searchInput.value.trim();
+
+    let filteredItems;
+    if (query.length > 0) {
+      const fuseResults = fuse.search(query);
+      filteredItems = fuseResults.map((result) => result.item);
+    } else {
+      filteredItems = clothingItems; // Show all items if search input is empty
+    }
+
     displayItems(filteredItems);
   });
 });
